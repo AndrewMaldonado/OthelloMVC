@@ -33,8 +33,8 @@ public class View extends javax.swing.JFrame implements MessageHandler {
     this.mvcMessaging.subscribe("gameOver", this);
     this.mvcMessaging.subscribe("newGame", this);
     this.mvcMessaging.subscribe("Tie", this);
-    this.mvcMessaging.subscribe("X", this);
-    this.mvcMessaging.subscribe("O", this);
+    this.mvcMessaging.subscribe("Black", this);
+    this.mvcMessaging.subscribe("White", this);
   }
   
  @Override
@@ -60,11 +60,11 @@ public class View extends javax.swing.JFrame implements MessageHandler {
       jButton9.setText(board[2][2]);
     }
     
-    if(messageName.equals("X")) {
-        jLabel1.setText("O's turn");
+    if(messageName.equals("Black")) {
+        jLabel1.setText("Black's turn");
     }
-    if(messageName.equals("O")) {
-        jLabel1.setText("X's turn");
+    if(messageName.equals("White")) {
+        jLabel1.setText("White's turn");
     }
     
     if (messageName.equals("gameOver")) {

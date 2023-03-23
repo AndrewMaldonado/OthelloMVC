@@ -24,7 +24,7 @@ public class Model implements MessageHandler {
    */
   public Model(Messenger messages) {
     mvcMessaging = messages;
-    this.board = new String[3][3];
+    this.board = new String[8][8];
   }
   
   /**
@@ -79,11 +79,11 @@ public class Model implements MessageHandler {
                 if (this.whoseMove) {
                     this.board[row][col] = "X";
                     this.whoseMove = false;
-                    this.mvcMessaging.notify("X");
+                    this.mvcMessaging.notify("Black");
                 } else {
                     this.board[row][col] = "O";
                     this.whoseMove = true;
-                    this.mvcMessaging.notify("O");
+                    this.mvcMessaging.notify("White");
                 }
             }
         }
