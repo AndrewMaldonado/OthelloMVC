@@ -13,7 +13,8 @@ public class View extends javax.swing.JFrame implements MessageHandler {
 
     private final Messenger mvcMessaging;
     //private String winner; 
-  
+   //* The model represents the data that the app uses.
+
   /**
    * Creates a new view
    * @param messages mvcMessaging object
@@ -189,7 +190,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
         });
 
         jButton4.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
-        jButton4.setName("10"); // NOI18N
+        jButton4.setName("04"); // NOI18N
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -198,7 +199,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
         });
 
         jButton5.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
-        jButton5.setName("11"); // NOI18N
+        jButton5.setName("05"); // NOI18N
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onClick(evt);
@@ -206,7 +207,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
         });
 
         jButton6.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
-        jButton6.setName("12"); // NOI18N
+        jButton6.setName("06"); // NOI18N
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -215,7 +216,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
         });
 
         jButton7.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
-        jButton7.setName("20"); // NOI18N
+        jButton7.setName("07"); // NOI18N
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
@@ -224,7 +225,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
         });
 
         jButton8.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
-        jButton8.setName("21"); // NOI18N
+        jButton8.setName("08"); // NOI18N
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);

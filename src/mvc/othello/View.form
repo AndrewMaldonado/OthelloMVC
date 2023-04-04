@@ -321,7 +321,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Liberation Sans" size="48" style="0"/>
         </Property>
-        <Property name="name" type="java.lang.String" value="10" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="04" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed,onClick"/>
@@ -332,7 +332,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Liberation Sans" size="48" style="0"/>
         </Property>
-        <Property name="name" type="java.lang.String" value="11" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="05" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onClick"/>
@@ -343,7 +343,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Liberation Sans" size="48" style="0"/>
         </Property>
-        <Property name="name" type="java.lang.String" value="12" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="06" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton6ActionPerformed,onClick"/>
@@ -354,7 +354,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Liberation Sans" size="48" style="0"/>
         </Property>
-        <Property name="name" type="java.lang.String" value="20" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="07" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton7ActionPerformed,onClick"/>
@@ -365,7 +365,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Liberation Sans" size="48" style="0"/>
         </Property>
-        <Property name="name" type="java.lang.String" value="21" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="08" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton8ActionPerformed,onClick"/>

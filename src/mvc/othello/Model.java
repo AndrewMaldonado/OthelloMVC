@@ -15,7 +15,7 @@ public class Model implements MessageHandler {
   private boolean gameOver;
   private String[][] board;
 
-  // Model's data variables
+  // Model's data vControllerariables
 
   /**
    * Model constructor: Create the data representation of the program
@@ -106,15 +106,17 @@ public class Model implements MessageHandler {
 
   }
   
-   private String isWinner() {
-    for (int i = 0; i < this.board.length; i++) {
-        for(i = 0; i < this.board[0].length; i++) {
-            if(this.board[i][i].equals("")) {
-                this.gameOver = false;
-            } else {
-                this.gameOver = true;
-                this.mvcMessaging.notify("gameOver");
+    private String isWinner() {
+        for (int i = 0; i < this.board.length; i++) {
+            for(i = 0; i < this.board[0].length; i++) {
+                if(this.board[i][i].equals("")) {
+                    this.gameOver = false;
+                } else {
+                    this.gameOver = true;
+                    this.mvcMessaging.notify("gameOver");
+                }
             }
         }
+        return "";
     }
 }
