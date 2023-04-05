@@ -117,10 +117,8 @@ public class View extends javax.swing.JFrame implements MessageHandler {
       String[][] board = (String[][])messagePayload;
       // Now set the button text with the contents of the board
       for(int i = 0; i < 64; i++) {
-        for(int j = 0; j < 8; i++) {
-            
-        }  
-      }
+          this.BList[i].setText(board[0][0]);
+      }  
     }
     
     if(messageName.equals("Black")) {
@@ -227,7 +225,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton1.setName("00"); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -235,7 +233,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton2.setName("01"); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -243,7 +241,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton3.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton3.setName("02"); // NOI18N
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -251,7 +249,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton4.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton4.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton4.setName("03"); // NOI18N
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -260,7 +258,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton5.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton5.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton5.setName("04"); // NOI18N
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -268,7 +266,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton6.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton6.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton6.setName("05"); // NOI18N
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -277,7 +275,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton7.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton7.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton7.setName("06"); // NOI18N
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -286,7 +284,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton8.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton8.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton8.setName("07"); // NOI18N
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -295,7 +293,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton9.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton9.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton9.setName("10"); // NOI18N
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -304,7 +302,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton10.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton10.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton10.setName("11"); // NOI18N
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -312,7 +310,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton11.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton11.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton11.setName("17"); // NOI18N
         jButton11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -320,7 +318,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton12.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton12.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton12.setName("12"); // NOI18N
         jButton12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -328,7 +326,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton13.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton13.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton13.setName("13"); // NOI18N
         jButton13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -336,7 +334,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton14.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton14.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton14.setName("15"); // NOI18N
         jButton14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -344,7 +342,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton15.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton15.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton15.setName("15"); // NOI18N
         jButton15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -352,7 +350,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton16.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton16.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton16.setName("17"); // NOI18N
         jButton16.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -360,7 +358,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton17.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton17.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton17.setName("20"); // NOI18N
         jButton17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -368,7 +366,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton18.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton18.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton18.setName("21"); // NOI18N
         jButton18.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -376,7 +374,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton19.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton19.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton19.setName("22"); // NOI18N
         jButton19.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -384,7 +382,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton20.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton20.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton20.setName("23"); // NOI18N
         jButton20.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -392,7 +390,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton21.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton21.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton21.setName("24"); // NOI18N
         jButton21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -400,7 +398,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton22.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton22.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton22.setName("25"); // NOI18N
         jButton22.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -408,7 +406,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton23.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton23.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton23.setName("26"); // NOI18N
         jButton23.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -416,7 +414,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton24.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton24.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton24.setName("27"); // NOI18N
         jButton24.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -424,7 +422,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton25.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton25.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton25.setName("30"); // NOI18N
         jButton25.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -432,7 +430,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton26.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton26.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton26.setName("31"); // NOI18N
         jButton26.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -440,7 +438,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton27.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton27.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton27.setName("32"); // NOI18N
         jButton27.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -448,7 +446,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton28.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton28.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton28.setName("33"); // NOI18N
         jButton28.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -456,7 +454,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton29.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton29.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton29.setName("34"); // NOI18N
         jButton29.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -464,7 +462,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton30.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton30.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton30.setName("35"); // NOI18N
         jButton30.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -472,7 +470,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton31.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton31.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton31.setName("36"); // NOI18N
         jButton31.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -480,7 +478,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton32.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton32.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton32.setName("37"); // NOI18N
         jButton32.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -488,7 +486,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton33.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton33.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton33.setName("40"); // NOI18N
         jButton33.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -496,7 +494,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton34.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton34.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton34.setName("41"); // NOI18N
         jButton34.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -504,7 +502,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton35.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton35.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton35.setName("42"); // NOI18N
         jButton35.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -512,7 +510,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton36.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton36.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton36.setName("43"); // NOI18N
         jButton36.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -520,7 +518,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton37.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton37.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton37.setName("44"); // NOI18N
         jButton37.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -528,7 +526,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton38.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton38.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton38.setName("45"); // NOI18N
         jButton38.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -536,7 +534,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton39.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton39.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton39.setName("46"); // NOI18N
         jButton39.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -544,7 +542,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton40.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton40.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton40.setName("47"); // NOI18N
         jButton40.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -552,7 +550,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton41.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton41.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton41.setName("50"); // NOI18N
         jButton41.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -560,7 +558,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton42.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton42.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton42.setName("51"); // NOI18N
         jButton42.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -568,7 +566,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton43.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton43.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton43.setName("52"); // NOI18N
         jButton43.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -576,7 +574,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton44.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton44.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton44.setName("53"); // NOI18N
         jButton44.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -584,7 +582,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton45.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton45.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton45.setName("54"); // NOI18N
         jButton45.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -592,7 +590,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton46.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton46.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton46.setName("55"); // NOI18N
         jButton46.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -600,7 +598,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton47.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton47.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton47.setName("56"); // NOI18N
         jButton47.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -608,7 +606,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton48.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton48.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton48.setName("57"); // NOI18N
         jButton48.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -616,7 +614,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton49.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton49.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton49.setName("60"); // NOI18N
         jButton49.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -624,7 +622,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton50.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton50.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton50.setName("61"); // NOI18N
         jButton50.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -632,7 +630,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton51.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton51.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton51.setName("62"); // NOI18N
         jButton51.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -640,7 +638,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton52.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton52.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton52.setName("63"); // NOI18N
         jButton52.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -648,7 +646,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton53.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton53.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton53.setName("64"); // NOI18N
         jButton53.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -656,7 +654,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton54.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton54.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton54.setName("65"); // NOI18N
         jButton54.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -664,7 +662,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton55.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton55.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton55.setName("66"); // NOI18N
         jButton55.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -672,7 +670,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton56.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton56.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton56.setName("67"); // NOI18N
         jButton56.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -680,7 +678,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton57.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton57.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton57.setName("70"); // NOI18N
         jButton57.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -688,7 +686,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton58.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton58.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton58.setName("61"); // NOI18N
         jButton58.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -696,7 +694,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton59.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton59.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton59.setName("62"); // NOI18N
         jButton59.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -704,7 +702,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton60.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton60.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton60.setName("53"); // NOI18N
         jButton60.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -712,7 +710,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton61.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton61.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton61.setName("54"); // NOI18N
         jButton61.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -720,7 +718,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton62.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton62.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton62.setName("55"); // NOI18N
         jButton62.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -728,7 +726,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton63.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton63.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton63.setName("56"); // NOI18N
         jButton63.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -736,7 +734,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
-        jButton64.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
+        jButton64.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jButton64.setName("77"); // NOI18N
         jButton64.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
