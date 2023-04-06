@@ -89,7 +89,7 @@ public class Model implements MessageHandler {
         }
         // Send the boardChange message along with the new board 
         this.mvcMessaging.notify("boardChange", this.board);
-        String winner = this.isWinner(); 
+        //String winner = this.isWinner(); 
     
     // newGame message handler
         
