@@ -1,6 +1,7 @@
 package mvc.othello;
 
 import com.mrjaffesclass.apcs.messenger.*;
+import java.util.ArrayList;
 
 /**
  * The model represents the data that the app uses.
@@ -14,6 +15,7 @@ public class Model implements MessageHandler {
   private boolean whoseMove;
   private boolean gameOver;
   int[][] board;
+  int[][] legalMoves;
 
   // Model's data vControllerariables
 
@@ -25,13 +27,13 @@ public class Model implements MessageHandler {
   public Model(Messenger messages) {
     mvcMessaging = messages;
     this.board = new int[8][8];
+    this.legalMoves = new int[8][8];
   }
   
   /**
    * Initialize the model here and subscribe to any required messages
    */
   public void init() {
-    this.newGame();
     this.mvcMessaging.subscribe("playerMove", this);
     this.mvcMessaging.subscribe("newGame", this);
     this.mvcMessaging.subscribe("gameOver", this);
@@ -42,7 +44,7 @@ public class Model implements MessageHandler {
   }
   
     public void newGame() {
-        this.board = new int[8][8];
+       
         
         this.whoseMove = false;
         this.gameOver = false;
@@ -65,6 +67,8 @@ public class Model implements MessageHandler {
       String position = (String)messagePayload;
       Integer row = Integer.valueOf(position.substring(0,1));
       Integer col = Integer.valueOf(position.substring(1,2));
+      
+      //0 means empty, 1 is black, and -1 is white
       
 
 
@@ -90,81 +94,102 @@ public class Model implements MessageHandler {
 
   }
   
-    
-    
-     public static int getSquare(int[][] board, Position position) {
-        return board[position.getRow()][position.getCol()];
-    }
-     
-     public static int[][] setSquare(int player, int[][] board, Position position) {
-        board[position.getRow()][position.getCol()] = player;
-        return board;
-    }
-     
-     private static boolean makeStep(int player, int[][] board, Position position, Position direction, int count) {
-        Position newPosition = position.translate(direction);
-        int oplayer = ((player == 1) ? 2 : 1);
-        if (newPosition.isOffBoard()) {
-            return false;
-        } else if (getSquare(board, newPosition) == oplayer) {
-            boolean valid = makeStep(player, board, newPosition, direction, count+1);
-            if (valid) {
-                setSquare(player, board, newPosition);
+    public boolean isLegalMove(int row, int col) {
+        int[] position = new int[2];
+        ArrayList<Integer> place;
+        int playerTurn = whoseMove ? -1 : 1;
+        if(this.board[row][col] != 0) return false;
+        for(int[] directions : Directions.directions) {
+            position[0] = row;
+            position[1] = col;
+            place = new ArrayList();
+            vector(directions, position);
+            while(inBound(position) && getSquare(position) == playerTurn * -1) {
+                place.add(getSquare(position), directions);
+                vector(directions, position);
             }
-            return valid;
-        } else if (getSquare(board, newPosition) == player) {
-            return count > 0;
-        } else {
-            return false;
-        }
-    }
-     
-    public static int[][] makeMove(int playerToMove, int[][] board, Position positionToMove) {
-        for (String direction : Directions.getDirections()) {
-            Position directionVector = Directions.getVector(direction);
-            if (makeStep(playerToMove, board, positionToMove, directionVector, 0)) {
-                board = setSquare(playerToMove, board, positionToMove);
-            }
-        }
-        return board;
-    }
-
-     private static boolean step(int player, int[][] board, Position position, Position direction, int count) {
-         Position newPosition = position.translate(direction);
-         int newplayer = ((player == 1) ? 2 : 1);
-         if (newPosition.isOffBoard()) {
-            // if off board then illegal
-            return false;
-         } else if ((getSquare(board, newPosition) == 0) && (count == 0)) {
-            // if empty and adjacent to position then illegal
-            return false;
-         } else if (getSquare(board, newPosition) == newplayer && getSquare(board, newPosition) != 0) {
-            // if space has opposing player then move to space in that direction
-            return step(player, board, newPosition, direction, count+1);
-         } else if (getSquare(board, newPosition) == player) {
-            // if space has player and moved more than 1 space its legal
-            return count > 0;
-         } else {
-            return false;
-        }
-     }
-     
-    
-     public static boolean isLegalMove(int[][] board, int player, Position positionToCheck) {
-        // check if empty, if not illegal
-        if (getSquare(board, positionToCheck) != 0)
-            return false;
-        // check directions to see if its legal
-        for (String direction : Directions.getDirections()) {
-            Position directionVector = Directions.getVector(direction);
-            if (step(player, board, positionToCheck, directionVector, 0)) {
-                return true;
+            if(inBound(position)) {
+                place.add(getSquare(position), directions);
             }
         }
         return false;
     }
+  
+    private void updateBoard(int row, int col) {
+        int[] position = new int[2];
+        ArrayList<Integer> place;
+        int square = this.board[row][col];
+        for(int[] direction : Directions.directions) {
+            position[0] = row;
+            position[1] = col;
+            place = new ArrayList();
+            vector(direction, position);
+            while(inBound(position) && getSquare(position) == square * -1) {
+                place.add(getSquare(position), new int[] {position[0], position[1]});
+                vector(direction, position);
+            }
+            if(inBound(position) && getSquare(position) != 0) {
+                updateSquares(position, new int[] {row, col}, direction);
+            }
+        }
+    }
     
+    private void updateSquares(int[] end, int[] start, int[] directions ) {
+        vector(directions, start);
+        while(start[0] != end[0] || start[1] != end[1]) {
+            this.board[start[0]][start[1]] = this.board[start[0]][start[1]] * -1;
+            vector(directions, start);
+        }
+    }
+    
+    private int[] pieces() {
+        int black = 0;
+        int white = 0;
+        for(int[] ro : this.board) {
+           for(int num : ro) {
+               if(num == 1) {
+                   black ++;
+               }
+               if(num == -1) {
+                   white ++;
+               }
+           }
+       }
+        return new int[] {black, white};
+    }
+    
+    private void makeMove(int row, int col) {
+        this.board[row][col] = (this.whoseMove) ? 1 : -1;
+        updateBoard(row, col);
+        
+        //go through whole board and check using legalmove, if legal add to legalMoves[][]
+        
+       int black = 0;
+       int white = 0;
+       
+       int[] pieces = {black, white};
+       this.mvcMessaging.notify("pieces", pieces());
+       this.mvcMessaging.notify("boardChange", this.board);
+    }
+    
+    
+    public void vector(int[] vector, int[] position) {
+        position[0] += vector[0];
+        position[1] += vector[1];
+    }
+    
+     public boolean inBound(int[] position) {
+        return (position[0] >= 0 && position[0] < 8) && (position[1] >= 0 && position[1] < 8);
+    }
+     
+    private int getSquare(int[] position) {
+        return this.board[position[0]][position[1]];
+    }
+  
+ 
     
     
     
 }
+    
+    
