@@ -13,7 +13,7 @@ public class Model implements MessageHandler {
   private final Messenger mvcMessaging;
   private boolean whoseMove;
   private boolean gameOver;
-  private String[][] board;
+  int[][] board;
 
   // Model's data vControllerariables
 
@@ -24,7 +24,7 @@ public class Model implements MessageHandler {
    */
   public Model(Messenger messages) {
     mvcMessaging = messages;
-    this.board = new String[8][8];
+    this.board = new int[8][8];
   }
   
   /**
@@ -42,15 +42,13 @@ public class Model implements MessageHandler {
   }
   
     public void newGame() {
-    for(int row=0; row<this.board.length; row++) {
-      for (int col=0; col<this.board[0].length; col++) {
-        this.board[row][col] = "";
-      }
-    }
-    this.whoseMove = false;
-    this.gameOver = false;
+        this.board = new int[8][8];
+        
+        this.whoseMove = false;
+        this.gameOver = false;
   }
-
+    
+     
   
   @Override
   public void messageHandler(String messageName, Object messagePayload) {
@@ -71,22 +69,8 @@ public class Model implements MessageHandler {
 
 
 
-      // If square is blank...
-        //String winner = this.isWinner();
-        if(!this.gameOver) {
-            if (this.board[row][col].equals("")) {
-            // ... then set X or O depending on whose move it is
-                if (this.whoseMove) {
-                    this.board[row][col] = "B";
-                    this.whoseMove = false;
-                    this.mvcMessaging.notify("Black");
-                } else {
-                    this.board[row][col] = "W";
-                    this.whoseMove = true;
-                    this.mvcMessaging.notify("White");
-                }
-            }
-        }
+     
+        
         // Send the boardChange message along with the new board 
         this.mvcMessaging.notify("boardChange", this.board);
         //String winner = this.isWinner(); 
@@ -106,17 +90,81 @@ public class Model implements MessageHandler {
 
   }
   
-    private String isWinner() {
-        for (int i = 0; i < this.board.length; i++) {
-            for(i = 0; i < this.board[0].length; i++) {
-                if(this.board[i][i].equals("")) {
-                    this.gameOver = false;
-                } else {
-                    this.gameOver = true;
-                    this.mvcMessaging.notify("gameOver");
-                }
+    
+    
+     public static int getSquare(int[][] board, Position position) {
+        return board[position.getRow()][position.getCol()];
+    }
+     
+     public static int[][] setSquare(int player, int[][] board, Position position) {
+        board[position.getRow()][position.getCol()] = player;
+        return board;
+    }
+     
+     private static boolean makeStep(int player, int[][] board, Position position, Position direction, int count) {
+        Position newPosition = position.translate(direction);
+        int oplayer = ((player == 1) ? 2 : 1);
+        if (newPosition.isOffBoard()) {
+            return false;
+        } else if (getSquare(board, newPosition) == oplayer) {
+            boolean valid = makeStep(player, board, newPosition, direction, count+1);
+            if (valid) {
+                setSquare(player, board, newPosition);
+            }
+            return valid;
+        } else if (getSquare(board, newPosition) == player) {
+            return count > 0;
+        } else {
+            return false;
+        }
+    }
+     
+    public static int[][] makeMove(int playerToMove, int[][] board, Position positionToMove) {
+        for (String direction : Directions.getDirections()) {
+            Position directionVector = Directions.getVector(direction);
+            if (makeStep(playerToMove, board, positionToMove, directionVector, 0)) {
+                board = setSquare(playerToMove, board, positionToMove);
             }
         }
-        return "";
+        return board;
     }
+
+     private static boolean step(int player, int[][] board, Position position, Position direction, int count) {
+         Position newPosition = position.translate(direction);
+         int newplayer = ((player == 1) ? 2 : 1);
+         if (newPosition.isOffBoard()) {
+            // if off board then illegal
+            return false;
+         } else if ((getSquare(board, newPosition) == 0) && (count == 0)) {
+            // if empty and adjacent to position then illegal
+            return false;
+         } else if (getSquare(board, newPosition) == newplayer && getSquare(board, newPosition) != 0) {
+            // if space has opposing player then move to space in that direction
+            return step(player, board, newPosition, direction, count+1);
+         } else if (getSquare(board, newPosition) == player) {
+            // if space has player and moved more than 1 space its legal
+            return count > 0;
+         } else {
+            return false;
+        }
+     }
+     
+    
+     public static boolean isLegalMove(int[][] board, int player, Position positionToCheck) {
+        // check if empty, if not illegal
+        if (getSquare(board, positionToCheck) != 0)
+            return false;
+        // check directions to see if its legal
+        for (String direction : Directions.getDirections()) {
+            Position directionVector = Directions.getVector(direction);
+            if (step(player, board, positionToCheck, directionVector, 0)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    
+    
+    
 }
