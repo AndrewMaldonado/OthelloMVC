@@ -2,6 +2,8 @@ package mvc.othello;
 
 import com.mrjaffesclass.apcs.messenger.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The model represents the data that the app uses.
@@ -91,22 +93,25 @@ public class Model implements MessageHandler {
       this.mvcMessaging.notify("boardChange", this.board);
       this.mvcMessaging.notify("newGame");
     }
-
   }
   
     public boolean isLegalMove(int row, int col) {
         int[] position = new int[2];
-        ArrayList<Integer> place;
-        int playerTurn = whoseMove ? -1 : 1;
-        if(this.board[row][col] != 0) return false;
+        int turn = this.whoseMove ? -1 : 1;
+        Map<Integer, Integer[]> place  = new HashMap<Integer, Integer[]>();
+        if(this.board[row][col] != 0) {
+            return false;
+        }
         for(int[] directions : Directions.directions) {
             position[0] = row;
             position[1] = col;
-            place = new ArrayList();
+            int i = 0;
+            place = (Map<Integer, Integer[]>) new ArrayList();
             vector(directions, position);
-            while(inBound(position) && getSquare(position) == playerTurn * -1) {
-                place.add(getSquare(position), directions);
+            while(inBound(position) && getSquare(position) == turn * -1) {
+                place.get(i).add(getSquare(position), directions);
                 vector(directions, position);
+                i ++;
             }
             if(inBound(position)) {
                 place.add(getSquare(position), directions);
@@ -129,12 +134,12 @@ public class Model implements MessageHandler {
                 vector(direction, position);
             }
             if(inBound(position) && getSquare(position) != 0) {
-                updateSquares(position, new int[] {row, col}, direction);
+                updateSquare(position, new int[] {row, col}, direction);
             }
         }
     }
     
-    private void updateSquares(int[] end, int[] start, int[] directions ) {
+    private void updateSquare(int[] end, int[] start, int[] directions ) {
         vector(directions, start);
         while(start[0] != end[0] || start[1] != end[1]) {
             this.board[start[0]][start[1]] = this.board[start[0]][start[1]] * -1;
