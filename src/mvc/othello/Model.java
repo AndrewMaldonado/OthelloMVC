@@ -71,13 +71,14 @@ public class Model implements MessageHandler {
       Integer col = Integer.valueOf(position.substring(1,2));
       
       //0 means empty, 1 is black, and -1 is white
-      
 
 
 
      
         
         // Send the boardChange message along with the new board 
+        this.mvcMessaging.notify("boardChange", this.board);
+        this.mvcMessaging.notify("pieces", pieces());
         this.mvcMessaging.notify("boardChange", this.board);
         //String winner = this.isWinner(); 
     
@@ -128,7 +129,8 @@ public class Model implements MessageHandler {
             position[1] = col;
             vector(direction, position);
             while(inBound(position) && getSquare(position) == square * -1) {
-                place.put(getSquare(position), {position[0], position[1]});
+                int[] pos = {position[0], position[1]};
+                place.put(getSquare(position), pos);
                 vector(direction, position);
             }
             if(inBound(position) && getSquare(position) != 0) {
@@ -164,15 +166,13 @@ public class Model implements MessageHandler {
     private void makeMove(int row, int col) {
         this.board[row][col] = (this.whoseMove) ? 1 : -1;
         updateBoard(row, col);
-        
         //go through whole board and check using legalmove, if legal add to legalMoves[][]
         
-       int black = 0;
-       int white = 0;
+        
+        
        
-       int[] pieces = {black, white};
-       this.mvcMessaging.notify("pieces", pieces());
-       this.mvcMessaging.notify("boardChange", this.board);
+        
+
     }
     
     
@@ -181,7 +181,7 @@ public class Model implements MessageHandler {
         position[1] += vector[1];
     }
     
-     public boolean inBound(int[] position) {
+    public boolean inBound(int[] position) {
         return (position[0] >= 0 && position[0] < 8) && (position[1] >= 0 && position[1] < 8);
     }
      
