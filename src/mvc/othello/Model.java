@@ -97,24 +97,23 @@ public class Model implements MessageHandler {
   
     public boolean isLegalMove(int row, int col) {
         int[] position = new int[2];
-        int turn = this.whoseMove ? -1 : 1;
-        Map<Integer, Integer[]> place  = new HashMap<Integer, Integer[]>();
+        HashMap<Integer, int[]> place  = new HashMap<>();
         if(this.board[row][col] != 0) {
             return false;
         }
+        int turn = this.whoseMove ? -1 : 1;
         for(int[] directions : Directions.directions) {
             position[0] = row;
             position[1] = col;
             int i = 0;
-            place = (Map<Integer, Integer[]>) new ArrayList();
             vector(directions, position);
             while(inBound(position) && getSquare(position) == turn * -1) {
-                place.get(i).add(getSquare(position), directions);
+                place.put(getSquare(position), directions);
                 vector(directions, position);
                 i ++;
             }
             if(inBound(position)) {
-                place.add(getSquare(position), directions);
+                place.put(getSquare(position), directions);
             }
         }
         return false;
@@ -122,15 +121,14 @@ public class Model implements MessageHandler {
   
     private void updateBoard(int row, int col) {
         int[] position = new int[2];
-        ArrayList<Integer> place;
+        HashMap<Integer, int[]> place  = new HashMap<>();
         int square = this.board[row][col];
         for(int[] direction : Directions.directions) {
             position[0] = row;
             position[1] = col;
-            place = new ArrayList();
             vector(direction, position);
             while(inBound(position) && getSquare(position) == square * -1) {
-                place.add(getSquare(position), new int[] {position[0], position[1]});
+                place.put(getSquare(position), {position[0], position[1]});
                 vector(direction, position);
             }
             if(inBound(position) && getSquare(position) != 0) {
@@ -150,14 +148,14 @@ public class Model implements MessageHandler {
     private int[] pieces() {
         int black = 0;
         int white = 0;
-        for(int[] ro : this.board) {
-           for(int num : ro) {
-               if(num == 1) {
-                   black ++;
-               }
-               if(num == -1) {
-                   white ++;
-               }
+        for(int[] i : this.board) {
+            for(int num : i) {
+                if(num == 1) {
+                    black ++;
+                }
+                if(num == -1) {
+                    white ++;
+                }
            }
        }
         return new int[] {black, white};

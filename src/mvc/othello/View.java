@@ -38,6 +38,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
     this.mvcMessaging.subscribe("Tie", this);
     this.mvcMessaging.subscribe("Black", this);
     this.mvcMessaging.subscribe("White", this);
+    this.mvcMessaging.subscribe("pieces", this);
     this.BList[0] = this.jButton1;
     this.BList[1] = this.jButton2;
     this.BList[2] = this.jButton3;
