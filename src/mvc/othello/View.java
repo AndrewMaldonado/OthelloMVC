@@ -13,7 +13,7 @@ import javax.swing.JButton;
 public class View extends javax.swing.JFrame implements MessageHandler {
 
     private final Messenger mvcMessaging;
-    private final JButton[] BList = new JButton[64];
+    private final JButton[][] BList;
     //private String winner; 
    //* The model represents the data that the app uses.
 
@@ -24,7 +24,17 @@ public class View extends javax.swing.JFrame implements MessageHandler {
   public View(Messenger messages) {
     mvcMessaging = messages;   // Save the calling controller instance
     initComponents();           // Create and init the GUI components
-  }
+    BList = new JButton[][] {
+        {this.jButton1, this.jButton2, this.jButton3, this.jButton4, this.jButton5, this.jButton6, this.jButton7, this.jButton8},
+        {this.jButton9, this.jButton10, this.jButton11, this.jButton12, this.jButton13, this.jButton14, this.jButton15, this.jButton16},
+        {this.jButton17, this.jButton18, this.jButton19, this.jButton20, this.jButton21, this.jButton22, this.jButton23, this.jButton24},
+        {this.jButton25, this.jButton26, this.jButton27, this.jButton28, this.jButton29, this.jButton30, this.jButton31, this.jButton32},
+        {this.jButton33, this.jButton34, this.jButton35, this.jButton36, this.jButton37, this.jButton38, this.jButton39, this.jButton40},
+        {this.jButton41, this.jButton42, this.jButton43, this.jButton44, this.jButton45, this.jButton46, this.jButton47, this.jButton48},
+        {this.jButton49, this.jButton50, this.jButton51, this.jButton52, this.jButton53, this.jButton54, this.jButton55, this.jButton56},
+        {this.jButton57, this.jButton58, this.jButton59, this.jButton60, this.jButton61, this.jButton62, this.jButton63, this.jButton64},
+    };
+    }
   
   /**
    * Initialize the model here and subscribe
@@ -39,70 +49,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
     this.mvcMessaging.subscribe("Black", this);
     this.mvcMessaging.subscribe("White", this);
     this.mvcMessaging.subscribe("pieces", this);
-    this.BList[0] = this.jButton1;
-    this.BList[1] = this.jButton2;
-    this.BList[2] = this.jButton3;
-    this.BList[3] = this.jButton4;
-    this.BList[4] = this.jButton5;
-    this.BList[5] = this.jButton6;
-    this.BList[6] = this.jButton7;
-    this.BList[7] = this.jButton8;
-    this.BList[8] = this.jButton9;
-    this.BList[9] = this.jButton10;
-    this.BList[10] = this.jButton11;
-    this.BList[11] = this.jButton12;
-    this.BList[12] = this.jButton13;
-    this.BList[13] = this.jButton14;
-    this.BList[14] = this.jButton15;
-    this.BList[15] = this.jButton16;
-    this.BList[16] = this.jButton17;
-    this.BList[17] = this.jButton18;
-    this.BList[18] = this.jButton19;
-    this.BList[19] = this.jButton20;
-    this.BList[20] = this.jButton21;
-    this.BList[21] = this.jButton22;
-    this.BList[22] = this.jButton23;
-    this.BList[23] = this.jButton24;
-    this.BList[24] = this.jButton25;
-    this.BList[25] = this.jButton26;
-    this.BList[26] = this.jButton27;
-    this.BList[27] = this.jButton28;
-    this.BList[28] = this.jButton29;
-    this.BList[29] = this.jButton30;
-    this.BList[30] = this.jButton31;
-    this.BList[31] = this.jButton32;
-    this.BList[32] = this.jButton33;
-    this.BList[33] = this.jButton34;
-    this.BList[34] = this.jButton35;
-    this.BList[35] = this.jButton36;
-    this.BList[36] = this.jButton37;
-    this.BList[37] = this.jButton38;
-    this.BList[38] = this.jButton39;
-    this.BList[39] = this.jButton40;
-    this.BList[40] = this.jButton41;
-    this.BList[41] = this.jButton42;
-    this.BList[42] = this.jButton43;
-    this.BList[43] = this.jButton44;
-    this.BList[44] = this.jButton45;
-    this.BList[45] = this.jButton46;
-    this.BList[46] = this.jButton47;
-    this.BList[47] = this.jButton48;
-    this.BList[48] = this.jButton49;
-    this.BList[49] = this.jButton50;
-    this.BList[50] = this.jButton51;
-    this.BList[51] = this.jButton52;
-    this.BList[52] = this.jButton53;
-    this.BList[53] = this.jButton54;
-    this.BList[54] = this.jButton55;
-    this.BList[55] = this.jButton56;
-    this.BList[56] = this.jButton57;
-    this.BList[57] = this.jButton58;
-    this.BList[58] = this.jButton59;
-    this.BList[59] = this.jButton60;
-    this.BList[60] = this.jButton61;
-    this.BList[61] = this.jButton62;
-    this.BList[62] = this.jButton63;
-    this.BList[63] = this.jButton64;
+
   }
   
  @Override
@@ -115,13 +62,20 @@ public class View extends javax.swing.JFrame implements MessageHandler {
     if (messageName.equals("boardChange")) {
       // Get the message payload and cast it as a 2D string array since we
       // know that the model is sending out the board data with the message
-      String[][] board = (String[][])messagePayload;
+      int[][] board = (int[][])messagePayload;
       // Now set the button text with the contents of the board
-      int count = 0;
       for(int i = 0; i < 8; i++) {
           for(int j = 0; j < 8; j++) {
-              this.BList[count].setText(board[i][j]);
-              count ++;
+            if(board[i][j] == 1) {
+                this.BList[i][j].setText("B");
+            }
+            else if(board[i][j] == -1) {
+                this.BList[i][j].setText("W");
+            }
+            else {
+                System.out.println("no change");
+                this.BList[i][j].setText("");
+            }
           }
       }  
     }

@@ -30,6 +30,10 @@ public class Model implements MessageHandler {
     mvcMessaging = messages;
     this.board = new int[8][8];
     this.legalMoves = new int[8][8];
+    this.board[3][3] = 1;
+    this.board[4][4] = 1;
+    this.board[3][4] = -1;
+    this.board[4][3] = -1;
   }
   
   /**
@@ -71,7 +75,18 @@ public class Model implements MessageHandler {
       Integer col = Integer.valueOf(position.substring(1,2));
       
       //0 means empty, 1 is black, and -1 is white
-
+        if(this.board[row][col] == 0 && isLegalMove(row, col)) {
+            if(this.whoseMove) {
+                this.mvcMessaging.notify("Black");
+            }
+            else {
+                this.mvcMessaging.notify("White");
+            }
+            this.makeMove(row, col);
+            this.whoseMove = !this.whoseMove;
+            this.mvcMessaging.notify("boardChange", this.board);
+            this.mvcMessaging.notify("pieces", pieces());
+        }
 
 
      
@@ -79,8 +94,6 @@ public class Model implements MessageHandler {
         // Send the boardChange message along with the new board 
         this.mvcMessaging.notify("boardChange", this.board);
         this.mvcMessaging.notify("pieces", pieces());
-        this.mvcMessaging.notify("boardChange", this.board);
-        //String winner = this.isWinner(); 
     
     // newGame message handler
         
@@ -98,23 +111,29 @@ public class Model implements MessageHandler {
   
     public boolean isLegalMove(int row, int col) {
         int[] position = new int[2];
-        HashMap<Integer, int[]> place  = new HashMap<>();
+        HashMap<Integer, int[]> place;
+        //if the square is not empty return false
         if(this.board[row][col] != 0) {
             return false;
         }
         int turn = this.whoseMove ? -1 : 1;
+        //go through all directions and check if the move is legal
         for(int[] directions : Directions.directions) {
             position[0] = row;
             position[1] = col;
-            int i = 0;
+            place = new HashMap<>();
             vector(directions, position);
+            //check for the opposite color
             while(inBound(position) && getSquare(position) == turn * -1) {
                 place.put(getSquare(position), directions);
                 vector(directions, position);
-                i ++;
             }
             if(inBound(position)) {
                 place.put(getSquare(position), directions);
+            }
+            //check if the move is legal
+            if(place.containsKey(turn) && place.containsKey(turn * -1)) {
+                return true;
             }
         }
         return false;
@@ -122,25 +141,30 @@ public class Model implements MessageHandler {
   
     private void updateBoard(int row, int col) {
         int[] position = new int[2];
-        HashMap<Integer, int[]> place  = new HashMap<>();
+        HashMap<Integer, int[]> place;
         int square = this.board[row][col];
         for(int[] direction : Directions.directions) {
             position[0] = row;
             position[1] = col;
+            place = new HashMap<>();
             vector(direction, position);
+            //check for the opposite color
             while(inBound(position) && getSquare(position) == square * -1) {
                 int[] pos = {position[0], position[1]};
                 place.put(getSquare(position), pos);
                 vector(direction, position);
             }
+            //update squares
             if(inBound(position) && getSquare(position) != 0) {
-                updateSquare(position, new int[] {row, col}, direction);
+                int[] newPosition = {position[row], position[col]};
+                updateSquare(position, newPosition, direction);
             }
         }
     }
     
     private void updateSquare(int[] end, int[] start, int[] directions ) {
         vector(directions, start);
+        //flip game pieces
         while(start[0] != end[0] || start[1] != end[1]) {
             this.board[start[0]][start[1]] = this.board[start[0]][start[1]] * -1;
             vector(directions, start);
@@ -164,15 +188,45 @@ public class Model implements MessageHandler {
     }
     
     private void makeMove(int row, int col) {
-        this.board[row][col] = (this.whoseMove) ? 1 : -1;
         updateBoard(row, col);
-        //go through whole board and check using legalmove, if legal add to legalMoves[][]
+        boolean isLegal = false;
         
-        
-        
-       
-        
-
+        for(int i = 0; i < 8; i++) {
+            for(int j = 0; j < 8; j++) {
+                if(this.whoseMove) {
+                    this.board[i][j] = 1;
+                } else if(!this.whoseMove) {
+                    this.board[i][j] = -1;
+                } else {
+                    this.board[i][j] = 0;
+                }
+            }
+        }
+        //check if there are any legal moves
+        for(int[] legal : this.legalMoves) {
+            for(int position : legal) {
+                if(position == -2 || position == 2) {
+                    isLegal = true;
+                }
+            }
+        }
+        //if there are no legal moves change turn
+        if(!isLegal) {
+            whoseMove = !whoseMove;
+            for(int i = 0; i < 8; i++) {
+                for(int j = 0; j < 8; j++) {
+                    if(isLegalMove(i, j)) {
+                        if(this.whoseMove) {
+                            this.board[i][j] = 1;
+                        } else if(!this.whoseMove) {
+                            this.board[i][j] = -1;
+                        } else {
+                            this.board[i][j] = 0;
+                        }
+                    }
+                }
+            }
+        }
     }
     
     
