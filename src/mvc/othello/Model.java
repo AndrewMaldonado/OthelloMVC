@@ -17,7 +17,7 @@ public class Model implements MessageHandler {
   private boolean whoseMove;
   private boolean gameOver;
   int[][] board;
-  int[][] legalMoves;
+  boolean[][] legalMoves;
 
   // Model's data vControllerariables
 
@@ -29,31 +29,43 @@ public class Model implements MessageHandler {
   public Model(Messenger messages) {
     mvcMessaging = messages;
     this.board = new int[8][8];
-    this.legalMoves = new int[8][8];
-    this.board[3][3] = 1;
-    this.board[4][4] = 1;
-    this.board[3][4] = -1;
-    this.board[4][3] = -1;
+    this.legalMoves = new boolean[8][8];
   }
   
   /**
    * Initialize the model here and subscribe to any required messages
    */
   public void init() {
+    this.newGame();
     this.mvcMessaging.subscribe("playerMove", this);
     this.mvcMessaging.subscribe("newGame", this);
-    this.mvcMessaging.subscribe("gameOver", this);
-    this.mvcMessaging.subscribe("Tie", this);
-    whoseMove = false;
-    gameOver = false;
-
   }
   
     public void newGame() {
-       
+        for(int[] board : this.board) {
+            for(int j = 0; j < board.length; j++) {
+                board[j] = 0;
+            }
+        }
+        for(boolean[] board : this.legalMoves) {
+            for(int j = 0; j < board.length; j++) {
+                board[j] = false;
+            }
+        }
+        this.whoseMove = true;
+        this.board[3][3] = 1;
+        this.board[4][4] = 1;
+        this.board[3][4] = -1;
+        this.board[4][3] = -1;
+        this.legalMoves[2][3] = true;
+        this.legalMoves[3][2] = true;
+        this.legalMoves[4][5] = true;
+        this.legalMoves[5][4] = true;
         
-        this.whoseMove = false;
-        this.gameOver = false;
+        this.mvcMessaging.notify("boardChange", this.board);
+        this.mvcMessaging.notify("pieces", pieces());
+        this.mvcMessaging.notify("legalMoves", this.legalMoves);
+        this.mvcMessaging.notify("whoseMove", this.whoseMove);
   }
     
      
@@ -75,13 +87,8 @@ public class Model implements MessageHandler {
       Integer col = Integer.valueOf(position.substring(1,2));
       
       //0 means empty, 1 is black, and -1 is white
-        if(this.board[row][col] == 0 && isLegalMove(row, col)) {
-            if(this.whoseMove) {
-                this.mvcMessaging.notify("Black");
-            }
-            else {
-                this.mvcMessaging.notify("White");
-            }
+        if(this.board[row][col] == 0 && legalMoves[row][col]) {
+            
             this.makeMove(row, col);
             this.whoseMove = !this.whoseMove;
             this.mvcMessaging.notify("boardChange", this.board);
@@ -111,7 +118,7 @@ public class Model implements MessageHandler {
   
     public boolean isLegalMove(int row, int col) {
         int[] position = new int[2];
-        HashMap<Integer, int[]> place;
+        HashMap<Integer, int[]> place = new HashMap<>();
         //if the square is not empty return false
         if(this.board[row][col] != 0) {
             return false;
@@ -141,7 +148,7 @@ public class Model implements MessageHandler {
   
     private void updateBoard(int row, int col) {
         int[] position = new int[2];
-        HashMap<Integer, int[]> place;
+        HashMap<Integer, int[]> place = new HashMap<>();
         int square = this.board[row][col];
         for(int[] direction : Directions.directions) {
             position[0] = row;
@@ -188,24 +195,19 @@ public class Model implements MessageHandler {
     }
     
     private void makeMove(int row, int col) {
+        this.board[row][col] = (this.whoseMove) ? 1 : -1;
         updateBoard(row, col);
         boolean isLegal = false;
         
         for(int i = 0; i < 8; i++) {
             for(int j = 0; j < 8; j++) {
-                if(this.whoseMove) {
-                    this.board[i][j] = 1;
-                } else if(!this.whoseMove) {
-                    this.board[i][j] = -1;
-                } else {
-                    this.board[i][j] = 0;
-                }
+                legalMoves[i][j] = isLegalMove(i, j);
             }
         }
         //check if there are any legal moves
-        for(int[] legal : this.legalMoves) {
-            for(int position : legal) {
-                if(position == -2 || position == 2) {
+        for(boolean[] legal : this.legalMoves) {
+            for(boolean position : legal) {
+                if(position) {
                     isLegal = true;
                 }
             }
@@ -215,18 +217,15 @@ public class Model implements MessageHandler {
             whoseMove = !whoseMove;
             for(int i = 0; i < 8; i++) {
                 for(int j = 0; j < 8; j++) {
-                    if(isLegalMove(i, j)) {
-                        if(this.whoseMove) {
-                            this.board[i][j] = 1;
-                        } else if(!this.whoseMove) {
-                            this.board[i][j] = -1;
-                        } else {
-                            this.board[i][j] = 0;
-                        }
-                    }
+                    legalMoves[i][j] = isLegalMove(i, j);
                 }
             }
         }
+        this.whoseMove = !this.whoseMove;
+        this.mvcMessaging.notify("boardChange", this.board);
+        this.mvcMessaging.notify("legalMoves", this.legalMoves);
+        this.mvcMessaging.notify("pieces", pieces());
+        this.mvcMessaging.notify("whoseMove", this.whoseMove);
     }
     
     

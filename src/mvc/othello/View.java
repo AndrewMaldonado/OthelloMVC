@@ -2,6 +2,7 @@ package mvc.othello;
 import com.mrjaffesclass.apcs.messenger.*;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import java.awt.Color;
 /**
  * MVC Template
  * This is a template of an MVC framework used by APCS for the 
@@ -34,7 +35,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
         {this.jButton49, this.jButton50, this.jButton51, this.jButton52, this.jButton53, this.jButton54, this.jButton55, this.jButton56},
         {this.jButton57, this.jButton58, this.jButton59, this.jButton60, this.jButton61, this.jButton62, this.jButton63, this.jButton64},
     };
-    }
+  }
   
   /**
    * Initialize the model here and subscribe
@@ -51,7 +52,27 @@ public class View extends javax.swing.JFrame implements MessageHandler {
     this.mvcMessaging.subscribe("pieces", this);
 
   }
+
+  private Color getPieceColor(int number) {
+    if (number == 1) {
+      return Color.BLACK;
+    }
+    if (number == -1) {
+      return Color.WHITE;
+    }
+    return Color.GRAY;
+  }
+
+  private void buttonUpdate(int row, int col, JButton button, int[][] board) {
+    button.setBackground(getPieceColor(board[row][col]));
+  }
   
+  private void legalUpdate(int row, int col, JButton button, boolean[][] legalMoves) {
+      if(legalMoves[row][col]) {
+            button.setBackground(button.getBackground());
+      }
+  }
+
  @Override
   public void messageHandler(String messageName, Object messagePayload) {
     if (messagePayload != null) {
@@ -64,39 +85,34 @@ public class View extends javax.swing.JFrame implements MessageHandler {
       // know that the model is sending out the board data with the message
       int[][] board = (int[][])messagePayload;
       // Now set the button text with the contents of the board
-      for(int i = 0; i < 8; i++) {
-          for(int j = 0; j < 8; j++) {
-            if(board[i][j] == 1) {
-                this.BList[i][j].setText("B");
+        for(int i = 0; i < 8; i++) {
+            for(int j = 0; j < 8; j++) {
+                buttonUpdate(i, j, BList[i][j], board);
             }
-            else if(board[i][j] == -1) {
-                this.BList[i][j].setText("W");
+        }   
+    }
+
+    if(messageName.equals("legalMoves")) {
+        boolean[][] legalMoves = (boolean[][])messagePayload;
+        for(int i = 0; i < 8; i++) {
+            for(int j = 0; j < 8; j++) {
+                legalUpdate(i, j, BList[i][j], legalMoves);
             }
-            else {
-                System.out.println("no change");
-                this.BList[i][j].setText("");
-            }
-          }
-      }  
+        }
     }
     
     if(messageName.equals("pieces")) {
         
     }
-    
-    if(messageName.equals("Black")) {
-        jLabel2.setText("Black's turn");
+    if(messageName.equals("gameOver")) {
+        boolean turn = (boolean)messagePayload;
+        if(turn) {
+            jLabel1.setText("Black's Turn");
+        } else {
+            jLabel1.setText("White's Turn");
+        }
     }
-    if(messageName.equals("White")) {
-        jLabel1.setText("White's turn");
-    }
-    
-    if (messageName.equals("gameOver")) {
-        jLabel1.setText("Game Over");
-    }
-    if (messageName.equals("Tie")) {
-        jLabel1.setText("Tie");
-    }
+        
     if(messageName.equals("newGame")) {
         jLabel1.setText("");
     }
