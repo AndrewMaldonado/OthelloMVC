@@ -15,7 +15,7 @@ public class Model implements MessageHandler {
   // Messaging system for the MVC
   private final Messenger mvcMessaging;
   private boolean whoseMove;
-  private boolean gameOver;
+  private int gameOver;
   int[][] board;
   boolean[][] legalMoves;
 
@@ -43,20 +43,20 @@ public class Model implements MessageHandler {
   
     public void newGame() {
         for(int[] board : this.board) {
-            for(int j = 0; j < board.length; j++) {
-                board[j] = 0;
+            for(int i = 0; i < board.length; i++) {
+                board[i] = 0;
             }
         }
         for(boolean[] board : this.legalMoves) {
-            for(int j = 0; j < board.length; j++) {
-                board[j] = false;
+            for(int i = 0; i < board.length; i++) {
+                board[i] = false;
             }
         }
         this.whoseMove = true;
-        this.board[3][3] = 1;
-        this.board[4][4] = 1;
-        this.board[3][4] = -1;
-        this.board[4][3] = -1;
+        this.board[3][3] = -1;
+        this.board[4][4] = -1;
+        this.board[3][4] = 1;
+        this.board[4][3] = 1;
         this.legalMoves[2][3] = true;
         this.legalMoves[3][2] = true;
         this.legalMoves[4][5] = true;
@@ -88,11 +88,12 @@ public class Model implements MessageHandler {
       
       //0 means empty, 1 is black, and -1 is white
         if(this.board[row][col] == 0 && legalMoves[row][col]) {
-            
             this.makeMove(row, col);
-            this.whoseMove = !this.whoseMove;
-            this.mvcMessaging.notify("boardChange", this.board);
-            this.mvcMessaging.notify("pieces", pieces());
+        }
+        
+        if(this.gameOver() == true) {
+            this.mvcMessaging.notify("gameOver", this.gameOver);
+            //this.mvcMessaging.notify("gameOver", this.pieces());
         }
 
 
@@ -100,7 +101,9 @@ public class Model implements MessageHandler {
         
         // Send the boardChange message along with the new board 
         this.mvcMessaging.notify("boardChange", this.board);
-        this.mvcMessaging.notify("pieces", pieces());
+        this.mvcMessaging.notify("legalMoves", this.legalMoves);
+        this.mvcMessaging.notify("pieces", this.pieces());
+        
     
     // newGame message handler
         
@@ -111,8 +114,6 @@ public class Model implements MessageHandler {
       // Reset the app state
       this.newGame();
       // Send the boardChange message along with the new board 
-      this.mvcMessaging.notify("boardChange", this.board);
-      this.mvcMessaging.notify("newGame");
     }
   }
   
@@ -157,14 +158,14 @@ public class Model implements MessageHandler {
             vector(direction, position);
             //check for the opposite color
             while(inBound(position) && getSquare(position) == square * -1) {
-                int[] pos = {position[0], position[1]};
-                place.put(getSquare(position), pos);
+                //int[] pos = {position[0], position[1]};
+                place.put(getSquare(position), new int[] {position[0], position[1]});
                 vector(direction, position);
             }
             //update squares
             if(inBound(position) && getSquare(position) != 0) {
-                int[] newPosition = {position[row], position[col]};
-                updateSquare(position, newPosition, direction);
+                //int[] newPosition = {position[row], position[col]};
+                updateSquare(position, new int[] {row, col}, direction);
             }
         }
     }
@@ -221,12 +222,41 @@ public class Model implements MessageHandler {
                 }
             }
         }
+
+        // int black = 0;
+        // int white = 0;
+        // int[] pieces = {black, white};
+        gameOver();
         this.whoseMove = !this.whoseMove;
+        this.mvcMessaging.notify("pieces", pieces());
         this.mvcMessaging.notify("boardChange", this.board);
         this.mvcMessaging.notify("legalMoves", this.legalMoves);
         this.mvcMessaging.notify("pieces", pieces());
         this.mvcMessaging.notify("whoseMove", this.whoseMove);
     }
+
+    private boolean gameOver() {
+        for(int i = 0; i < 8; i++) {
+            for(int j = 0; j < 8; j++) {
+                if(this.board[i][j] == 0) {
+                    return false;
+                }
+            }
+        }
+        int[] pieces = pieces();
+        if(pieces[0] > pieces[1]) {
+            this.gameOver = 1;
+        } else if(pieces[0] < pieces[1]) {
+            this.gameOver = -1;
+        } else {
+            this.gameOver = 0;
+        }
+        return true;
+    }
+
+
+
+
     
     
     public void vector(int[] vector, int[] position) {
@@ -241,11 +271,6 @@ public class Model implements MessageHandler {
     private int getSquare(int[] position) {
         return this.board[position[0]][position[1]];
     }
-  
- 
-    
-    
-    
 }
     
     
