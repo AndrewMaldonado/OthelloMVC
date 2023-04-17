@@ -54,7 +54,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
     this.mvcMessaging.subscribe("pieces", this);
 
   }
-
+ 
   private Color getPieceColor(int number) {
     if (number == 1) {
       return Color.BLACK;
@@ -65,10 +65,12 @@ public class View extends javax.swing.JFrame implements MessageHandler {
     return Color.GRAY;
   }
 
+  //set the button color
   private void buttonUpdate(int row, int col, JButton button, int[][] board) {
     button.setBackground(getPieceColor(board[row][col]));
   }
   
+  //show legal moves to player
   private void legalUpdate(int row, int col, JButton button, boolean[][] legalMoves) {
       if(legalMoves[row][col]) {
             button.setBackground(Color.GREEN);
@@ -83,10 +85,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
       System.out.println("MSG: received by view: "+messageName+" | No data sent");
     }
     if (messageName.equals("boardChange")) {
-      // Get the message payload and cast it as a 2D string array since we
-      // know that the model is sending out the board data with the message
       int[][] board = (int[][])messagePayload;
-      // Now set the button text with the contents of the board
         for(int i = 0; i < 8; i++) {
             for(int j = 0; j < 8; j++) {
                 buttonUpdate(i, j, BList[i][j], board);

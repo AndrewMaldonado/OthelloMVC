@@ -41,17 +41,21 @@ public class Model implements MessageHandler {
     this.mvcMessaging.subscribe("newGame", this);
   }
   
+    //reset board and for new game
     public void newGame() {
+        //clear board
         for(int[] board : this.board) {
             for(int i = 0; i < board.length; i++) {
                 board[i] = 0;
             }
         }
+        //clear legal moves
         for(boolean[] board : this.legalMoves) {
             for(int i = 0; i < board.length; i++) {
                 board[i] = false;
             }
         }
+        //set up board
         this.whoseMove = true;
         this.board[3][3] = -1;
         this.board[4][4] = -1;
@@ -61,7 +65,6 @@ public class Model implements MessageHandler {
         this.legalMoves[3][2] = true;
         this.legalMoves[4][5] = true;
         this.legalMoves[5][4] = true;
-        
         this.mvcMessaging.notify("boardChange", this.board);
         this.mvcMessaging.notify("pieces", pieces());
         this.mvcMessaging.notify("legalMoves", this.legalMoves);
@@ -86,19 +89,15 @@ public class Model implements MessageHandler {
       Integer row = Integer.valueOf(position.substring(0,1));
       Integer col = Integer.valueOf(position.substring(1,2));
       
-      //0 means empty, 1 is black, and -1 is white
+        //make chosen move
         if(this.board[row][col] == 0 && legalMoves[row][col]) {
             this.makeMove(row, col);
         }
-        
+        //check if game is over
         if(this.gameOver() == true) {
             this.mvcMessaging.notify("gameOver", this.gameOver);
-            //this.mvcMessaging.notify("gameOver", this.pieces());
         }
 
-
-     
-        
         // Send the boardChange message along with the new board 
         this.mvcMessaging.notify("boardChange", this.board);
         this.mvcMessaging.notify("legalMoves", this.legalMoves);
@@ -106,24 +105,22 @@ public class Model implements MessageHandler {
         
     
     // newGame message handler
-        
-    
-
-        
     } else if (messageName.equals("newGame")) {
-      // Reset the app state
+      //reset board
       this.newGame();
-      // Send the boardChange message along with the new board 
     }
   }
-  
+    //check if the square is a legal move
     public boolean isLegalMove(int row, int col) {
+        //create an array to hold the position
         int[] position = new int[2];
+        //create a hashmap to hold the possible moves
         HashMap<Integer, int[]> place = new HashMap<>();
         //if the square is not empty return false
         if(this.board[row][col] != 0) {
             return false;
         }
+        //get whoseMove
         int turn = this.whoseMove ? -1 : 1;
         //go through all directions and check if the move is legal
         for(int[] directions : Directions.directions) {
@@ -131,11 +128,12 @@ public class Model implements MessageHandler {
             position[1] = col;
             place = new HashMap<>();
             vector(directions, position);
-            //check for the opposite color
+            //check if any pieces to flip with a move and store them
             while(inBound(position) && getSquare(position) == turn * -1) {
                 place.put(getSquare(position), directions);
                 vector(directions, position);
             }
+            //check if the move is in bounds
             if(inBound(position)) {
                 place.put(getSquare(position), directions);
             }
@@ -148,9 +146,11 @@ public class Model implements MessageHandler {
     }
   
     private void updateBoard(int row, int col) {
+        //create an array to hold the position
         int[] position = new int[2];
         HashMap<Integer, int[]> place = new HashMap<>();
         int square = this.board[row][col];
+        //go through all directions and check if the move is legal
         for(int[] direction : Directions.directions) {
             position[0] = row;
             position[1] = col;
@@ -196,16 +196,18 @@ public class Model implements MessageHandler {
     }
     
     private void makeMove(int row, int col) {
+        //get whoseMove
         this.board[row][col] = (this.whoseMove) ? 1 : -1;
+        //update the board
         updateBoard(row, col);
         boolean isLegal = false;
-        
+        //set legal moves board to have all legal moves
         for(int i = 0; i < 8; i++) {
             for(int j = 0; j < 8; j++) {
                 legalMoves[i][j] = isLegalMove(i, j);
             }
         }
-        //check if there are any legal moves
+        //check the move is a legal move
         for(boolean[] legal : this.legalMoves) {
             for(boolean position : legal) {
                 if(position) {
@@ -223,9 +225,6 @@ public class Model implements MessageHandler {
             }
         }
 
-        // int black = 0;
-        // int white = 0;
-        // int[] pieces = {black, white};
         gameOver();
         this.whoseMove = !this.whoseMove;
         this.mvcMessaging.notify("pieces", pieces());
@@ -236,6 +235,7 @@ public class Model implements MessageHandler {
     }
 
     private boolean gameOver() {
+        //check if any squares are empty
         for(int i = 0; i < 8; i++) {
             for(int j = 0; j < 8; j++) {
                 if(this.board[i][j] == 0) {
@@ -243,6 +243,7 @@ public class Model implements MessageHandler {
                 }
             }
         }
+        //handle who wins by comparing the number of pieces
         int[] pieces = pieces();
         if(pieces[0] > pieces[1]) {
             this.gameOver = 1;
